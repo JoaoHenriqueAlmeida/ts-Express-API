@@ -11,11 +11,10 @@ export const userPostSchema = Joi.object({
 });
 
 export const createNewUser = async ({ username, classe, level, password }:IUser) => {
-  const error = userPostSchema.validate({ username, classe, level, password });
-  if (error) {
-    return responseGenerator(400, error.message);
+  const validationError = userPostSchema.validate({ username, classe, level, password });
+  if (validationError) {
+    return responseGenerator(400, validationError.error.details[0]);
   }
-
   const newUser = await UserModels.createNewUser({ username, classe, level, password });
   return responseGenerator(200, '', newUser);
 };
