@@ -10,6 +10,8 @@ enum StatusCodes {
   NotFound,
 }
 
+export const groselha = '';
+
 export const createNewUser = async (req: Request, res: Response) => {
   const { username, classe, level, password } = req.body;
 
