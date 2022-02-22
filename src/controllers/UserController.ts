@@ -13,11 +13,11 @@ enum StatusCodes {
 export const createNewUser = async (req: Request, res: Response) => {
   const { username, classe, level, password } = req.body;
 
-  const { httpStatus, message, data } = await UserServices
+  const { status, message, data } = await UserServices
     .createNewUser({ username, classe, level, password });
 
-  if (httpStatus >= StatusCodes.BadRequest) {
-    return res.status(httpStatus).json({ message });
+  if (status >= StatusCodes.BadRequest) {
+    return res.status(status).json({ message });
   }
 
   return res.status(StatusCodes.OK).json(data);
