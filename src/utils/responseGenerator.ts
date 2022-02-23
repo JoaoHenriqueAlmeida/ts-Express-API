@@ -1,4 +1,4 @@
-import IResponse from './IResponse';
+import IResponse from '../interfaces/IResponse';
 
 const responseGenerator = (status = 200, message = '', data = {}): IResponse => (
   {
