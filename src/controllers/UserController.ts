@@ -10,7 +10,7 @@ export const createNewUser = async (req: Request, res: Response) => {
     .createNewUser({ username, classe, level, password });
 
   if (status >= 400) {
-    return res.status(status).json({ message });
+    return res.status(status).json({ error: message });
   }
 
   return res.status(status).json(data);
