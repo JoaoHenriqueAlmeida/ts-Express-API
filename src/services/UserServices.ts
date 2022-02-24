@@ -4,17 +4,19 @@ import { IUser } from '../interfaces/IUser';
 import * as UserModels from '../models/UserModels';
 
 export const userPostSchema = Joi.object({
-  username: Joi.string().required(),
-  classe: Joi.string().required(),
-  level: Joi.number().required(),
-  password: Joi.string().required(),
-});
+  username: Joi.string().required().min(3),
+  classe: Joi.string().required().min(3),
+  level: Joi.number().required().greater(0),
+  password: Joi.string().required().min(8),
+}).strict();
 
 export const createNewUser = async ({ username, classe, level, password }:IUser) => {
-  const validationError = userPostSchema.validate({ username, classe, level, password });
-  if (validationError) {
-    return responseGenerator(400, JSON.stringify(validationError.error));
+  const { error } = userPostSchema.validate({ username, classe, level, password });
+  if (error) {
+    console.log(error);
+    return responseGenerator(422, error.details[0].message);
   }
+
   const newUser = {
     username,
     classe,
@@ -22,5 +24,5 @@ export const createNewUser = async ({ username, classe, level, password }:IUser)
     password,
   };
   const createdNewUser = UserModels.createNewUser(newUser);
-  return responseGenerator(200, '', createdNewUser);
+  return responseGenerator(201, '', createdNewUser);
 };
