@@ -1,15 +1,6 @@
 import { Request, Response } from 'express';
 import * as UserServices from '../services/UserServices';
 
-/* enum StatusCodes {
-  OK = 200,
-  BadRequest = 400,
-  Unauthorized,
-  PaymentRequired,
-  Forbidden,
-  NotFound,
-} */
-
 export const groselha = '';
 
 export const createNewUser = async (req: Request, res: Response) => {
@@ -22,5 +13,5 @@ export const createNewUser = async (req: Request, res: Response) => {
     return res.status(status).json({ message });
   }
 
-  return res.status(200).json(data);
+  return res.status(status).json(data);
 };
