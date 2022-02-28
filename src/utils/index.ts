@@ -21,7 +21,7 @@ export const handleErrorType = (type: string) => {
   return type === 'any.required' ? Status.required : Status.default;
 };
 
-export const responseGenerator = (status = 200, message = '', data = {}): IResponse => (
+export const resGenerator = (status = 200, message = '', data = {}): IResponse => (
   {
     status,
     message,

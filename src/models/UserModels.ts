@@ -1,6 +1,7 @@
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import connection from './connection';
 import { IUser, User } from '../interfaces/IUser';
+import ILogin from '../interfaces/ILogin';
 
 export const findByUserName = async (username: string): Promise<IUser | null> => {
   const [data] = await connection.execute<RowDataPacket[]>(
@@ -26,4 +27,13 @@ export const createNewUser = async ({ username, classe, level, password }: IUser
   const insertedUser: User = { id, username, classe, level, password };
 
   return insertedUser;
+};
+
+export const userLogin = async ({ username, password }:ILogin) => {
+  const [result] = await connection.execute<RowDataPacket[]>(
+    'SELECT * FROM Trybesmith.Users WHERE username = ? AND password = ? LIMIT 1',
+    [username, password],
+  );
+
+  return result;
 };
