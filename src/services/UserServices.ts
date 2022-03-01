@@ -78,8 +78,7 @@ export const userLogin = async ({ username, password }:ILogin) => {
       id: authorizedUser[0].id, username: authorizedUser[0].username,
     }, 'secret');
   
-    return utils
-      .resGenerator(utils.StatusCodes.OK, '', token);
+    return utils.resGenerator(utils.StatusCodes.OK, '', token);
   } catch (e:any) {
     return utils.resGenerator(utils.StatusCodes.SERVER_ERROR, e.message);
   }
