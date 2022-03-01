@@ -3,6 +3,15 @@ import connection from './connection';
 import { IUser, User } from '../interfaces/IUser';
 import ILogin from '../interfaces/ILogin';
 
+export const findById = async (id:number) => {
+  const [result] = await connection.execute<RowDataPacket[]>(
+    'SELECT * FROM Trybesmith.Users WHERE id = ?',
+    [id],
+  );
+
+  return result;
+};
+
 export const findByUserName = async (username: string): Promise<IUser | null> => {
   const [data] = await connection.execute<RowDataPacket[]>(
     'SELECT * FROM Trybesmith.Users WHERE username = ?',

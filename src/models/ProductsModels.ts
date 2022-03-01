@@ -1,6 +1,6 @@
 import { ResultSetHeader } from 'mysql2';
 import connection from './connection';
-import { IProduct, Product } from '../interfaces/IProduct';
+import IProduct from '../interfaces/IProduct';
 
 export const createNewProduct = async ({ name, amount }:IProduct) => {
   const [result] = await connection.execute<ResultSetHeader>(
@@ -9,7 +9,7 @@ export const createNewProduct = async ({ name, amount }:IProduct) => {
   );
   const { insertId: id } = result;
 
-  const insertedProduct:Product = { id, name, amount };
+  const insertedProduct = { item: { id, name, amount } };
 
   return insertedProduct;
 };

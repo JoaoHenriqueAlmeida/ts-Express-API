@@ -1,15 +1,18 @@
 import Joi from 'joi';
-import jwt from 'jsonwebtoken';
 import * as utils from '../utils';
-import { IProduct } from '../interfaces/IProduct';
+import IProduct from '../interfaces/IProduct';
 import * as ProductsModels from '../models/ProductsModels';
 
 const productPostSchema = Joi.object({
   name: Joi.string().min(3).required().messages({
     'any.required': 'Name is required',
+    'string.base': 'Name must be a string',
+    'string.min': 'Name must be longer than 2 characters',
   }),
   amount: Joi.string().min(3).required().messages({
     'any.required': 'Amount is required',
+    'string.base': 'Amount must be a string',
+    'string.min': 'Amount must be longer than 2 characters',
   }),
 }).strict();
 
@@ -23,7 +26,7 @@ export const createNewProduct = async ({ name, amount }:IProduct) => {
 
     const createdProduct = await ProductsModels.createNewProduct({ name, amount });
 
-    return utils.resGenerator(utils.StatusCodes.OK, '', createdProduct);
+    return utils.resGenerator(utils.StatusCodes.CREATED, '', createdProduct);
   } catch (e:any) {
     return utils.resGenerator(utils.StatusCodes.SERVER_ERROR, e.message);
   }
