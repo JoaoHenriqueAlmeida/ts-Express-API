@@ -32,4 +32,12 @@ export const createNewProduct = async ({ name, amount }:IProduct) => {
   }
 };
 
-export const groselinha = '';
+export const getAllProducts = async () => {
+  try {
+    const productsList = await ProductsModels.getAllProducts();
+
+    return utils.resGenerator(utils.StatusCodes.OK, '', productsList);
+  } catch (e:any) {
+    return utils.resGenerator(utils.StatusCodes.SERVER_ERROR, e.message);
+  }
+};

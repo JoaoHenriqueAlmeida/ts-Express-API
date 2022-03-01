@@ -13,4 +13,12 @@ export const createNewProduct = async (req: Request, res: Response) => {
   return res.status(status).json(data);
 };
 
-export const groselha = '';
+export const getAllProducts = async (req: Request, res: Response) => {
+  const { status, message, data } = await ProductsServices.getAllProducts();
+
+  if (status >= 400) {
+    return res.status(status).json({ error: message });
+  }
+
+  return res.status(status).json(data);
+};
